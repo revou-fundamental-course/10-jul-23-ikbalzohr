@@ -8,6 +8,9 @@ formElement.addEventListener("submit", handleSubmit);
 
 // Mendaftarkan element-element
 const headerElement = document.getElementById("header");
+const boxContent = document.getElementById("box-content");
+const headText = document.getElementById('head-text')
+const mainContent= document.getElementById('main-content')
 
 function handleSubmit(event) {
   event.preventDefault(); // Mencegah pengiriman form
@@ -57,6 +60,31 @@ function handleSubmit(event) {
   // Replace Element-element
   const judulElement = headerElement.querySelector("h2");
   judulElement.textContent = "Hasil";
+  headText.textContent = ''
+  boxContent.innerHTML = `
+    <div class="box-result">
+      <p>Berat Badan Lebih</p>
+      <div class="result-value">24.7</div>
+      <p>Anda memiliki berat badan berlebih</p>
+      <button class="btn-green">Download Hasil BMI</button>
+    </div>
+  `;
+  mainContent.innerHTML = `
+  <p class="text mb15">Hasil BMI diantara 23 dan 25</p>
+  <p class="text mb15">
+    Anda berada dalam kategori overweight atau berat badan berlebih. Cara terbaik untuk menurunkan berat badan adalah dengan mengatur kalor makanan yang dikonsumsi dan berolahraga. Jika BMI Anda berada dalam kategori ini maka Anda
+    dianjurkan untuk menurunkan berat badan hingga batas normal.
+  </p>
+  <div class="text mb15">
+    BMI tidak sepenuhnya mewakili diagnosis menyeluruh dari kesehatan tubuh dan resiko penyakit seseorang. Anda perlu konsultasi lebih lanjut mengenai resiko dan kekhawatiran Anda terkait dengan berat badan Anda.
+  </div>
+  <div class="box-color mb-full">
+    <div class="box-result">
+      <p class="text mb15">Beberapa penyakit yang berasal dari kegemukan</p>
+      <p class="text mb15">Mudah lelah, gampang sakit karena imun lemah, dan tulang rentan cedera</p>
+    </div>
+  </div>
+  `;
 
   console.log(selectedRadioButton.value)
   console.log({bmi});
