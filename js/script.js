@@ -15,6 +15,7 @@ const mainContent = document.getElementById("main-content");
 function handleSubmit(event) {
   event.preventDefault(); // Mencegah pengiriman form
   const form = event.target; // Mendapatkan referensi form
+  const linkHome = "https://revou-fundamental-course.github.io/10-jul-23-ikbalzohr/";
 
   // Mengambil nilai dari setiap input menggunakan nama atribut
   const selectedRadioButton = document.querySelector('input[name="gender"]:checked');
@@ -97,7 +98,7 @@ function handleSubmit(event) {
       <div class="result-value">${bmi.toFixed(2)}</div>
       <p>${notes}</p>
       <button class="btn-green mb15">Download Hasil BMI</button>
-      <a href='/' class="btn-red">Kembali</a>
+      <a href='${linkHome}' class="btn-red">Kembali</a>
     </div>
   `;
   mainContent.innerHTML = `
