@@ -3,95 +3,118 @@ const resetButton = document.querySelector('button[type="reset"]');
 resetButton.addEventListener("click", handleReset);
 
 // Mendaftarkan fungsi handleSubmit sebagai event handler untuk pengiriman form
-const formElement = document.querySelector('form');
+const formElement = document.querySelector("form");
 formElement.addEventListener("submit", handleSubmit);
 
 // Mendaftarkan element-element
 const headerElement = document.getElementById("header");
 const boxContent = document.getElementById("box-content");
-const headText = document.getElementById('head-text')
-const mainContent= document.getElementById('main-content')
+const headText = document.getElementById("head-text");
+const mainContent = document.getElementById("main-content");
 
 function handleSubmit(event) {
   event.preventDefault(); // Mencegah pengiriman form
   const form = event.target; // Mendapatkan referensi form
-  
+
   // Mengambil nilai dari setiap input menggunakan nama atribut
   const selectedRadioButton = document.querySelector('input[name="gender"]:checked');
   const beratBadan = form.elements["berat_badan"].value;
   const usia = form.elements["usia"].value;
   const tinggiBadan = form.elements["tinggi_badan"].value;
 
-  
   // Melakukan validasi
   if (!selectedRadioButton) {
-      alert('Silahkan Pilih Jenis Kelamin Terlebih Dahulu')
-      return
-    } 
-    if (beratBadan == '' || usia == '' || tinggiBadan == '') {
-      alert("Berat Badan, Usia, dan Tinggi Badan Tidak Boleh Kosong")
-      return
-    }
-    if (usia <= 15) {
-      alert("Anda Masih dibawah umur")
-      return
-    }
-    
-    // Perhitungan BMI 
-    const tinggiBadanCm = tinggiBadan/100
-    const tinggiBadanKuadrat = tinggiBadanCm * tinggiBadanCm
-    const bmi = beratBadan/tinggiBadanKuadrat
-    
-  // Logic status berat badan
-  const kekuranganBeratBadan = 18.5
-  const ideal = [18.5, 24.9]
-  const kelebihanBeratBadan = [25, 29.9]
-  if (bmi < kekuranganBeratBadan ) {
-    console.log("kurus")
-  }else if (bmi >= ideal[0] && bmi < ideal[1]) {
-    console.log("Ideal")
-  }else if (bmi >= kelebihanBeratBadan[0] && bmi < kelebihanBeratBadan[1]) {
-    console.log("Kelebihan")
-  }else {
-    console.log('Kegemukan')
+    alert("Silahkan Pilih Jenis Kelamin Terlebih Dahulu");
+    return;
+  }
+  if (beratBadan == "" || usia == "" || tinggiBadan == "") {
+    alert("Berat Badan, Usia, dan Tinggi Badan Tidak Boleh Kosong");
+    return;
+  }
+  if (usia <= 15) {
+    alert("Anda Masih dibawah umur");
+    return;
   }
 
-  
+  // Perhitungan BMI
+  const tinggiBadanCm = tinggiBadan / 100;
+  const tinggiBadanKuadrat = tinggiBadanCm * tinggiBadanCm;
+  const bmi = beratBadan / tinggiBadanKuadrat;
+
+  let status;
+  let notes;
+  let bmiRange;
+  let message;
+  let advice;
+  let disease;
+  let sickness;
+
+  // Logic status berat badan
+  const kekuranganBeratBadan = 18.5;
+  const ideal = [18.5, 24.9];
+  const kelebihanBeratBadan = [25, 29.9];
+  if (bmi < kekuranganBeratBadan) {
+    status = "Kekurangan Berat Badan";
+    notes = "Anda kekurangan berat badan";
+    bmiRange = "Hasil BMI kurang dari 18.5";
+    message = "Anda berada dalam kategori kurus atau berat badan kurang. Cara terbaik untuk menaikkan berat badan adalah dengan memperhatikan pola makan dan vitamin.";
+    advice = "Jika BMI Anda berada dalam kategori ini maka Anda dianjurkan untuk menaikkan berat badan hingga batas normal";
+    disease = "Beberapa penyakit yang berasal dari kekurangan berat badan";
+    sickness = "Mudah lelah, gampang sakit karena imun lemah, dan tulang rentan cedera";
+  } else if (bmi >= ideal[0] && bmi < ideal[1]) {
+    status = "Normal (Ideal)";
+    notes = "Anda memiliki berat badan normal";
+    bmiRange = "Hasil BMI antara 19 dan 25";
+    message = "Anda berada dalam kategori normal atau berat badan ideal. Pertahankan pola makan anda saat ini dan berolahraga.";
+    disease = "Insaallah Anda tidak terkena penyakit";
+    advice = "Jika BMI Anda berada dalam kategori ini maka Anda dianjurkan untuk mempertahankan berat badan saat ini";
+    sickness = "";
+  } else if (bmi >= kelebihanBeratBadan[0] && bmi < kelebihanBeratBadan[1]) {
+    status = "Kelebihan berat badan";
+    notes = "Anda memiliki berat badan berlebih";
+    bmiRange = "Hasil BMI antara 25 dan 30";
+    message = "Anda berada dalam kategori overweight atau berat badan berlebih. Cara terbaik untuk menurunkan berat badan adalah dengan mengatur kadar makanan yang dikonsumsi dan berolahraga.";
+    advice = "Jika BMI Anda berada dalam kategori ini maka Anda dianjurkan untuk menurunkan berat badan hingga batas normal";
+    disease = "Beberapa penyakit yang berasal dari kelebihan berat badan";
+    sickness = "Penyakit jantung, tekanan darah tinggi, diabetes, dan masalah pernapasan";
+  } else {
+    status = "Kegemukan (Obesitas)";
+    notes = "Anda mengalami Obesitas";
+    bmiRange = "Hasil BMI lebih dari 30";
+    message = "Anda berada dalam kategori terlalu gemuk atau obesitas, Anda perlu berkonsultasi ke Dokter";
+    advice = "Jika BMI Anda berada dalam kategori ini maka Anda dianjurkan untuk menurunkan berat badan hingga batas normal";
+    sickness = "Penyakit jantung, tekanan darah tinggi, diabetes tipe 2, masalah pernapasan, dan jenis kanker tertentu";
+    disease = "Beberapa penyakit yang berasal dari kegemukan";
+  }
+
   // Replace Element-element
   const judulElement = headerElement.querySelector("h2");
   judulElement.textContent = "Hasil";
-  headText.textContent = ''
+  headText.textContent = "";
   boxContent.innerHTML = `
     <div class="box-result">
-      <p>Berat Badan Lebih</p>
-      <div class="result-value">24.7</div>
-      <p>Anda memiliki berat badan berlebih</p>
-      <button class="btn-green">Download Hasil BMI</button>
+      <p>${status}</p>
+      <div class="result-value">${bmi.toFixed(2)}</div>
+      <p>${notes}</p>
+      <button class="btn-green mb15">Download Hasil BMI</button>
+      <a href='/' class="btn-red">Kembali</a>
     </div>
   `;
   mainContent.innerHTML = `
-  <p class="text mb15">Hasil BMI diantara 23 dan 25</p>
+  <p class="text mb15">${bmiRange}</p>
   <p class="text mb15">
-    Anda berada dalam kategori overweight atau berat badan berlebih. Cara terbaik untuk menurunkan berat badan adalah dengan mengatur kalor makanan yang dikonsumsi dan berolahraga. Jika BMI Anda berada dalam kategori ini maka Anda
-    dianjurkan untuk menurunkan berat badan hingga batas normal.
+    ${message} ${advice}
   </p>
   <div class="text mb15">
     BMI tidak sepenuhnya mewakili diagnosis menyeluruh dari kesehatan tubuh dan resiko penyakit seseorang. Anda perlu konsultasi lebih lanjut mengenai resiko dan kekhawatiran Anda terkait dengan berat badan Anda.
   </div>
   <div class="box-color mb-full">
     <div class="box-result">
-      <p class="text mb15">Beberapa penyakit yang berasal dari kegemukan</p>
-      <p class="text mb15">Mudah lelah, gampang sakit karena imun lemah, dan tulang rentan cedera</p>
+      <p class="text mb15">${disease}</p>
+      <p class="text mb15">${sickness}</p>
     </div>
   </div>
   `;
-
-  console.log(selectedRadioButton.value)
-  console.log({bmi});
-  console.log("Berat Badan (Kg):", beratBadan);
-  console.log("Usia (tahun):", usia);
-  console.log("Tinggi Badan (cm):", tinggiBadan);
-
 }
 
 // Fungsi untuk mereset form
