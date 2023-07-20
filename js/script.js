@@ -1,79 +1,76 @@
-// Get Element HTML by ID
-let age = document.getElementById("age");
-let height = document.getElementById("height");
-let weight = document.getElementById("weight");
-let male = document.getElementById("male");
-let female = document.getElementById("female");
-let form = document.getElementById("form");
-let modal = document.getElementById("myModal");
-// End Element HTML by ID
+// Mendaftarkan fungsi handleReset sebagai event handler untuk tombol "Reset"
+const resetButton = document.querySelector('button[type="reset"]');
+resetButton.addEventListener("click", handleReset);
 
-// Query querySelector
-let resultArea = document.querySelector(".comment");
-modalContent = document.querySelector(".modal-content");
-modalText = document.querySelector("#modalText");
-// End querySelector
+// Mendaftarkan fungsi handleSubmit sebagai event handler untuk pengiriman form
+const formElement = document.querySelector('form');
+formElement.addEventListener("submit", handleSubmit);
 
-// Get By className
-let span = document.getElementsByClassName("close")[0];
-// End Element By Class Name
+// Mendaftarkan element-element
+const headerElement = document.getElementById("header");
 
-// Function calculate
-function calculate() {
-  if (
-    age.value == "" ||
-    height.value == "" ||
-    weight.value == "" ||
-    (male.checked == false && female.checked == false)
-  ) {
-    modal.style.display = "block";
-    modalText.innerHTML = "All Field Are Required!";
-  } else {
-    countBmi();
+function handleSubmit(event) {
+  event.preventDefault(); // Mencegah pengiriman form
+  const form = event.target; // Mendapatkan referensi form
+  
+  // Mengambil nilai dari setiap input menggunakan nama atribut
+  const selectedRadioButton = document.querySelector('input[name="gender"]:checked');
+  const beratBadan = form.elements["berat_badan"].value;
+  const usia = form.elements["usia"].value;
+  const tinggiBadan = form.elements["tinggi_badan"].value;
+
+  
+  // Melakukan validasi
+  if (!selectedRadioButton) {
+      alert('Silahkan Pilih Jenis Kelamin Terlebih Dahulu')
+      return
+    } 
+    if (beratBadan == '' || usia == '' || tinggiBadan == '') {
+      alert("Berat Badan, Usia, dan Tinggi Badan Tidak Boleh Kosong")
+      return
+    }
+    if (usia <= 15) {
+      alert("Anda Masih dibawah umur")
+      return
+    }
+    
+    // Perhitungan BMI 
+    const tinggiBadanCm = tinggiBadan/100
+    const tinggiBadanKuadrat = tinggiBadanCm * tinggiBadanCm
+    const bmi = beratBadan/tinggiBadanKuadrat
+    
+  // Logic status berat badan
+  const kekuranganBeratBadan = 18.5
+  const ideal = [18.5, 24.9]
+  const kelebihanBeratBadan = [25, 29.9]
+  if (bmi < kekuranganBeratBadan ) {
+    console.log("kurus")
+  }else if (bmi >= ideal[0] && bmi < ideal[1]) {
+    console.log("Ideal")
+  }else if (bmi >= kelebihanBeratBadan[0] && bmi < kelebihanBeratBadan[1]) {
+    console.log("Kelebihan")
+  }else {
+    console.log('Kegemukan')
   }
+
+  
+  // Replace Element-element
+  const judulElement = headerElement.querySelector("h2");
+  judulElement.textContent = "Hasil";
+
+  console.log(selectedRadioButton.value)
+  console.log({bmi});
+  console.log("Berat Badan (Kg):", beratBadan);
+  console.log("Usia (tahun):", usia);
+  console.log("Tinggi Badan (cm):", tinggiBadan);
+
 }
 
-function countBmi() {
-  //Create array and value array
-  let p = [age.value, height.value, weight.value];
+// Fungsi untuk mereset form
+function handleReset(event) {
+  event.preventDefault(); // Mencegah pengiriman form
+  const form = event.target.form; // Mendapatkan referensi form
 
-  // conditional for checked
-  if (male.checked) {
-    p.push("male");
-  } else if (female.checked) {
-    p.push("female");
-  }
-
-  // Rumus calculate IMT
-  let bmi = Number(p[2]) / (((Number(p[1]) / 100) * Number(p[1])) / 100);
-
-  let result = ""; // Variabel Hasil
-
-  //   Conditional Berat Badan
-  if (bmi < 18.5) {
-    result = "Underwight";
-  } else if (18.5 <= bmi && bmi <= 29.9) {
-    result = "Overweight";
-  } else if (30 <= bmi && bmi <= 34.9) {
-    result = "Obese";
-  } else if (35 <= bmi) {
-    result = "Extremely Obese";
-  }
-
-  resultArea.style.display = "block";
-  document.querySelector(
-    ".comment"
-  ).innerHTML = `You are <span id ="comment">${result}</span>`;
-  document.querySelector("#result").innerHTML = bmi.toFixed(2);
+  // Mereset semua input pada form
+  form.reset();
 }
-
-// Function click close
-span.onclick = function () {
-  modal.style.display = "none";
-};
-
-window.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};

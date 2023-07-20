@@ -1,147 +1,156 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-    margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-    font-family: 'Montserrat', sans-serif;
-    box-sizing: border-box;
-}
-
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
+/* style.css */
 
 body {
-	line-height: 1;
-}
-
-ol, ul {
-	list-style: none;
-}
-
-blockquote, q {
-	quotes: none;
-}
-
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
 }
 
 .container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-@media screen and (max-width: 768px) {
-    .container {
-        width: 100%;
-        padding: 10px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .container {
-        padding: 5px;
-    }
+header {
+  text-align: center;
 }
 
 h2 {
-    font-size: 25px;
-    margin-bottom: 20px;
-}
-
-h3 {
-    font-size: 20px;
-    margin-bottom: 20px;
-}
-
-.mb20 {
-    margin-bottom: 20px;
-}
-
-.mt20 {
-    margin-top: 20px;
-}
-
-.mb15 {
-    margin-bottom: 15px;
-}
-
-.mb10 {
-    margin-bottom: 10px;
+  font-size: 28px;
 }
 
 .text {
-    font-size: 15px;
+  text-align: justify;
 }
 
-.text-bold {
-    font-size: 15px;
-    font-weight: bold;
+.mb20 {
+  margin-bottom: 20px;
+}
+
+main {
+  margin-top: 20px;
 }
 
 .box-color {
-    background-color: #f0f0f0;
-    border: 1px solid #ddd;
-    margin: 0 auto;
-    padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.mb15 {
+  margin-bottom: 15px;
+}
+
+.mt20 {
+  margin-top: 20px;
+}
+
+.flex-row {
+  display: flex;
+  align-items: center;
 }
 
 .gender {
-    display: inline-block;
-    align-content: center;
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.gender input[type="radio"] {
+  display: none; /* Sembunyikan radio button bawaan */
+}
+
+.gender label {
+  font-weight: bold;
+  padding: 10px 15px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Ketika Label Radio Button Di-Klik */
+.gender input[type="radio"]:checked + label {
+  background-color: #4caf50;
+  color: #fff;
+  border-color: #4caf50;
+}
+
+input[type="radio"] {
+  margin-right: 5px;
 }
 
 .form-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  margin-bottom: 10px;
+}
 
-  .icon {
-    margin-right: 10px;
-  }
+.input-icon {
+  margin-right: 10px;
+}
 
-  .icon-svg {
-    width: 20px;
-    height: 20px;
-    fill: #f3f3f3;
-  }
+.input-number {
+  border: none;
+  width: 100%;
+  font-size: 16px;
+}
 
-  .input-number {
-    padding: 5px;
-    width: 100%;
-    font-size: 16px;
-    display: flex;
-  }
+button {
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+  background-color: #4caf50;
+}
 
-  .input-number:focus {
-    outline: none;
-    border-color: #3498db;
-  }
+button:last-child {
+  background-color: #f44336;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+ul {
+  margin-bottom: 10px;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 20px; /* Berikan jarak atas dari konten utama */
+}
+
+footer p {
+  margin: 0;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
