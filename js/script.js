@@ -98,7 +98,7 @@ function handleSubmit(event) {
       <div class="result-value">${bmi.toFixed(2)}</div>
       <p>${notes}</p>
       <button class="btn-green mb15">Download Hasil BMI</button>
-      <a href='${linkHome}' class="btn-red">Kembali</a>
+      <a href=${linkHome} class="btn-red">Kembali</a>
     </div>
   `;
   mainContent.innerHTML = `
